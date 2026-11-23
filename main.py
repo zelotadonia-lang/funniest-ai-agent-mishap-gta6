@@ -17,8 +17,11 @@ LINE = (
 def main():
     assert 1 <= len(LINE) <= 240, f"line is {len(LINE)} chars"
     assert LINE.strip(), "line must not be only whitespace"
-    # Entry must be exactly one sentence: one line, no newline characters.
+    # Entry must be exactly one sentence: one line, no newline characters,
+    # and a single sentence terminator at the end.
     assert "\n" not in LINE and "\r" not in LINE, "entry must be a single line"
+    assert LINE.endswith("."), "entry must end with a full stop"
+    assert LINE.count(".") == 1, "entry must be exactly one sentence"
     # Deterministic by construction: fixed constant, no randomness, no
     # timestamps, explicit UTF-8 encoding, no trailing newline added.
     os.makedirs("/output", exist_ok=True)
